@@ -1,0 +1,47 @@
+<section id="how" style="padding-top:20px">
+  <div class="wrap">
+    <p class="kick">How it works</p>
+    <h2>Cheapest model first. Check. <em>Step up</em> if it fails.</h2>
+    <p class="lede">That loop never changes. What changes is how much Horsy is allowed to do, and it earns each step on your own repo.</p>
+    <div class="steps" data-reveal><div class="rail"><i></i><i></i><i></i></div>
+      <div class="step on"><div class="n">01 <span>day one · zero risk</span></div><h3>Verify</h3><p>Every “done” gets checked before it is accepted. If the work isn’t there, you hear it now, not in code review.</p></div>
+      <div class="step"><div class="n">02 <span>changes nothing</span></div><h3>Shadow</h3><p>Horsy watches your sessions and tells you what it would have routed, and what that would have saved. Your models stay as they are.</p></div>
+      <div class="step"><div class="n">03 <span>per task type</span></div><h3>Active</h3><p>Turns on only for task types where your repo’s data shows it costs less and breaks nothing. Everything else stays on your default.</p></div>
+    </div>
+
+    <div class="gatebox" data-reveal aria-label="Animation: a task runs on a mid model, fails the verify gate and steps up to the frontier model, which passes.">
+      <div class="glanes" id="glanes">
+        <div class="gl"><b>opus</b></div><div class="gl"><b>sonnet</b></div><div class="gl"><b>haiku</b></div>
+        <div class="ggate"></div><div class="gfin"></div>
+        <div class="runner"><div class="hop"><i class="gallop"></i></div></div>
+        <span class="gchip ko">✗ said done · step up</span><span class="gchip ok">✓ verified</span>
+      </div>
+      <p class="gcap">cheapest rung that can do it → verify → one rung up only if it fails</p>
+    </div>
+
+    <div class="receipt-row" data-reveal>
+      <div>
+        <p class="kick">The receipt</p>
+        <h2 style="font-size:clamp(2rem,4vw,3.1rem)">One line per step. Even when it <em>lost</em>.</h2>
+        <p class="lede">Model, cost, time, pass or fail. When a step cost more than running Opus alone would have, the receipt says so.</p>
+      </div>
+      <div class="printer" aria-label="Illustrative receipt">
+        <div class="slot"></div>
+        <div class="receipt" id="receipt">
+          <h4>Receipt <span>session 0412</span></h4>
+          <p class="meta">horsy · refactor auth + tests · 14:02:11</p>
+          <div class="r"><span>rename-symbol</span><span>haiku</span><span>$0.002</span><span class="k">✓ pass</span></div>
+          <div class="r"><span>grep-call-sites</span><span>haiku</span><span>$0.001</span><span class="k">✓ pass</span></div>
+          <div class="r lost"><span>write-test-stub</span><span>sonnet</span><span>$0.014</span><span class="f">✗ empty</span></div>
+          <div class="r lost"><span>&nbsp;&nbsp;↳ verify</span><span>horsy</span><span>$0.001</span><span class="f">→ step up</span></div>
+          <div class="r lost"><span>write-test-stub</span><span>opus</span><span>$0.061</span><span class="k">✓ pass</span></div>
+          <div class="r"><span>refactor-module</span><span>opus</span><span>$0.180</span><span class="k">✓ kept</span></div>
+          <div class="sub"><span>this step vs opus-only</span><span class="f">+$0.015 · lost</span></div>
+          <div class="sub"><span>false “done” caught</span><span>1</span></div>
+          <div class="tot"><span>session net vs opus-only</span><b id="rtot">−$0.030</b></div>
+          <small>Illustrative format. Every step gets a line, including the ones that cost more.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

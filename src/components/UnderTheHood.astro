@@ -1,0 +1,33 @@
+<section class="dark" id="hood">
+  <div class="wrap">
+    <p class="kick">Under the hood</p>
+    <h2>Three hooks. One engine. <em>Your</em> subagents.</h2>
+    <p class="lede">Opus still plans. Horsy sits between the plan and the work, and only on the work your agent delegates.</p>
+    <div class="hood" data-reveal>
+      <svg class="wires" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M300 70 C 340 70 330 200 370 200"/><path class="flow" d="M300 70 C 340 70 330 200 370 200"/>
+        <path d="M300 200 L 370 200"/><path class="flow" d="M300 200 L 370 200"/>
+        <path d="M300 330 C 340 330 330 200 370 200"/><path class="flow" d="M300 330 C 340 330 330 200 370 200"/>
+        <path d="M630 200 C 670 200 660 60 700 60"/><path class="flow" d="M630 200 C 670 200 660 60 700 60"/>
+        <path d="M630 200 C 670 200 660 160 700 160"/><path class="flow" d="M630 200 C 670 200 660 160 700 160"/>
+        <path d="M630 200 C 670 200 660 260 700 260"/><path class="flow" d="M630 200 C 670 200 660 260 700 260"/>
+      </svg>
+      <div class="hcol">
+        <div class="hbox"><h4>SessionStart</h4><p>Loads Horsy’s rules into the session.</p></div>
+        <div class="hbox"><h4>PreToolUse <code>· Agent</code></h4><p>Sees each subtask before it runs and picks the model.</p></div>
+        <div class="hbox"><h4>Stop</h4><p>Won’t let the session close until the check passes.</p></div>
+      </div>
+      <div class="engine">
+        <h4><svg aria-hidden="true"><use href="#knight"/></svg>Horsy engine</h4>
+        <ol><li><span>01</span>classify</li><li><span>02</span>pick rung</li><li><span>03</span>verify</li><li><span>04</span>receipt</li></ol>
+      </div>
+      <div class="hcol">
+        <div class="hbox model"><h4>haiku</h4><i>rung 1</i></div>
+        <div class="hbox model"><h4>sonnet</h4><i>rung 2</i></div>
+        <div class="hbox model"><h4>opus</h4><i>rung 3</i></div>
+        <div class="hbox model later"><h4>other providers</h4><i>later</i></div>
+      </div>
+    </div>
+    <p class="hnote">Your main session is never touched. Routing decisions run locally in tens of milliseconds.</p>
+  </div>
+</section>

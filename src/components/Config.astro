@@ -1,0 +1,34 @@
+<section class="dark" id="config">
+  <div class="wrap">
+    <p class="kick">You stay in control</p>
+    <h2>The ladder is <em>config</em>, not magic.</h2>
+    <div class="split" data-reveal>
+      <div class="code" style="background:#0F0E0B;border:1px solid #2A2720">
+        <div class="cbar"><i></i><i></i><i></i><span>horsy.yaml · v0, may change</span></div>
+<pre><span class="c-k">ladder</span>: [haiku, sonnet, opus]
+<span class="c-k">verify</span>:
+  - tests
+  - lint
+  - typecheck
+  - judge          <span class="c-c"># only where there are no tests</span>
+<span class="c-k">budget</span>:
+  session: <span class="c-s">$2.00</span>
+<span class="c-k">pin</span>:
+  refactor: opus   <span class="c-c"># never route this type down</span>
+<span class="c-k">mode</span>: shadow       <span class="c-c"># verify | shadow | active</span></pre>
+      </div>
+      <div>
+        <table class="dtable">
+          <thead><tr><th>What</th><th>Where it lives</th></tr></thead>
+          <tbody>
+            <tr><td>Your code and files</td><td><span class="tag-l">your machine</span><br>Never sent to Horsy’s servers.</td></tr>
+            <tr><td>Model choice and step-up</td><td><span class="tag-l">your machine</span><br>Decided locally, in tens of milliseconds.</td></tr>
+            <tr><td>Session receipts</td><td><span class="tag-l">your machine</span><br>Team plan keeps a copy of the metadata.</td></tr>
+            <tr><td>Routing data</td><td><span class="tag-s">metadata only</span><br>Task type, model, cost, pass or fail. No code.</td></tr>
+            <tr><td>Judge checks</td><td><span class="tag-n">your choice</span><br>A remote judge sees only the snippet it checks. Fully local option on the roadmap.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<section id="verify">
+  <div class="wrap">
+    <p class="kick">How verify works</p>
+    <h2>Cheap checks first. A judge only <em>where tests can’t</em> tell.</h2>
+    <div class="vgrid" data-reveal>
+      <div class="layers">
+        <div class="layer"><span class="num">1</span><div><h3>Tests, lint, typecheck</h3><p>Deterministic, local, free. Run first, every time there is something to run.</p></div></div>
+        <div class="layer"><span class="num">2</span><div><h3>A judge, only where needed</h3><p>When there are no tests to run, an independent model checks the work. Pluggable: you choose which.</p></div></div>
+        <div class="layer"><span class="num">3</span><div><h3>Fail → one rung up</h3><p>The task goes to the next model with the reason it failed, so it doesn’t repeat the same mistake.</p></div></div>
+      </div>
+      <div class="code">
+        <div class="cbar"><i></i><i></i><i></i><span>verify · write-test-stub</span></div>
+<pre><span class="c-k">horsy ▸</span> verify write-test-stub <span class="c-c">(sonnet)</span>
+  tests      <span class="c-ko">✗ 0 assertions in auth.test.ts</span>
+  lint       <span class="c-ok">✓</span>
+  typecheck  <span class="c-ok">✓</span>
+<span class="c-k">→ step up</span> opus
+  reason     <span class="c-s">"test file has no assertions"</span>
+
+<span class="c-k">horsy ▸</span> verify write-test-stub <span class="c-c">(opus)</span>
+  tests      <span class="c-ok">✓ 6 passed</span>
+  lint       <span class="c-ok">✓</span>
+  typecheck  <span class="c-ok">✓</span>
+<span class="c-ok">accepted</span>  <span class="c-c">· illustrative output</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
