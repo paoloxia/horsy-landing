@@ -211,7 +211,9 @@ footer .brand{font-size:1.25rem}
 .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.5;filter:sepia(.25) saturate(1.1)}
 .shade{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(22,20,15,.92) 0%,rgba(22,20,15,.55) 38%,rgba(22,20,15,.35) 62%,rgba(217,84,30,.35) 88%,rgba(22,20,15,.6) 100%)}
-.final .shade{background:linear-gradient(180deg,rgba(22,20,15,.9) 0%,rgba(22,20,15,.45) 55%,rgba(217,84,30,.4) 100%)}
+.final .shade{background:linear-gradient(180deg,rgba(22,20,15,.85) 0%,rgba(22,20,15,.35) 55%,rgba(217,84,30,.25) 100%)}
+.final .bgv{opacity:.7}
+.final{background:var(--ink)}
 .grain{z-index:1}
 @media (prefers-reduced-motion:reduce){.bgv{display:none}}
 
@@ -429,7 +431,7 @@ footer .brand{font-size:1.25rem}
 
 <!-- FINAL CTA -->
 <section class="final">
-  <video class="bgv" autoplay muted loop playsinline preload="none" poster="media/herd.jpg" aria-hidden="true"><source src="media/herd.mp4" type="video/mp4"></video>
+  <video class="bgv" autoplay muted loop playsinline preload="metadata" poster="media/herd.jpg" aria-hidden="true"><source src="media/herd.mp4" type="video/mp4"></video>
   <div class="shade"></div>
   <div class="grain"></div>
   <div class="wrap">
@@ -442,13 +444,7 @@ footer .brand{font-size:1.25rem}
       <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Shadow mode first</span>
     </div>
   </div>
-  <div class="herd" aria-hidden="true">
-    <div class="horse"><svg><use href="#horse"/></svg></div>
-    <div class="horse"><svg><use href="#horse"/></svg></div>
-    <div class="horse"><svg><use href="#horse"/></svg></div>
-    <div class="horse"><svg><use href="#horse"/></svg></div>
-    <div class="ground"></div>
-  </div>
+  <div style="height:160px"></div>
 </section>
 
 <footer>
@@ -463,6 +459,8 @@ footer .brand{font-size:1.25rem}
 const lanes=document.getElementById('lanes');
 const setW=()=>lanes.style.setProperty('--w',lanes.clientWidth+'px');
 setW();addEventListener('resize',setW);
+// autoplay fallback
+document.querySelectorAll('.bgv').forEach(v=>{const p=()=>v.play().catch(()=>{});p();new IntersectionObserver(e=>e[0].isIntersecting&&p()).observe(v)});
 </script>
 </body>
 </html>
