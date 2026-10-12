@@ -66,7 +66,7 @@ nav{position:fixed;top:14px;left:16px;right:16px;z-index:50;display:flex;justify
 .personas span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--silk-hi);margin-right:8px;vertical-align:middle}
 
 /* ---------- racetrack ---------- */
-.track{position:relative;z-index:2;margin:48px auto 0;max-width:1120px;padding:0 20px}
+.track{position:relative;z-index:3;margin:48px auto 0;max-width:1120px;padding:0 20px}
 .lanes{position:relative;border-top:1px solid rgba(255,255,255,.18)}
 .lane{position:relative;height:66px;border-bottom:1px dashed rgba(255,255,255,.22)}
 .lane .lbl{position:absolute;left:0;top:8px;font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);z-index:3}
@@ -191,7 +191,7 @@ h2 em{font-style:italic;color:var(--silk)}
 .reducers{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:22px;font-size:.88rem;color:#E9E3D6}
 .reducers span{display:inline-flex;align-items:center;gap:7px}
 .reducers svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5}
-.herd{position:relative;height:130px;margin-top:70px;overflow:hidden}
+.herd{position:relative;z-index:2;height:130px;margin-top:70px;overflow:hidden}
 .herd .horse{opacity:1;bottom:12px;animation:herd 9s linear infinite}
 .herd .horse svg{fill:var(--ink);width:72px;height:62px}
 .herd .horse:nth-child(2){animation-delay:-2.2s;bottom:34px;opacity:.65}
@@ -205,6 +205,15 @@ h2 em{font-style:italic;color:var(--silk)}
 footer{background:var(--ink);color:#9A9284;font-size:.85rem;padding:30px 0 40px}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 footer .brand{font-size:1.25rem}
+
+
+/* background footage (Pexels, free license), slowed + dimmed */
+.bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.5;filter:sepia(.25) saturate(1.1)}
+.shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(22,20,15,.92) 0%,rgba(22,20,15,.55) 38%,rgba(22,20,15,.35) 62%,rgba(217,84,30,.35) 88%,rgba(22,20,15,.6) 100%)}
+.final .shade{background:linear-gradient(180deg,rgba(22,20,15,.9) 0%,rgba(22,20,15,.45) 55%,rgba(217,84,30,.4) 100%)}
+.grain{z-index:1}
+@media (prefers-reduced-motion:reduce){.bgv{display:none}}
 
 @media (max-width:900px){
   .navlinks{display:none}
@@ -260,6 +269,8 @@ footer .brand{font-size:1.25rem}
 
 <!-- HERO -->
 <header class="hero" id="top">
+  <video class="bgv" autoplay muted loop playsinline preload="auto" poster="media/hero.jpg" aria-hidden="true"><source src="media/hero.mp4" type="video/mp4"></video>
+  <div class="shade"></div>
   <div class="grain"></div>
   <div class="wrap">
     <span class="badge"><b>NEW</b>A plugin for Claude Code · early access</span>
@@ -418,6 +429,8 @@ footer .brand{font-size:1.25rem}
 
 <!-- FINAL CTA -->
 <section class="final">
+  <video class="bgv" autoplay muted loop playsinline preload="none" poster="media/herd.jpg" aria-hidden="true"><source src="media/herd.mp4" type="video/mp4"></video>
+  <div class="shade"></div>
   <div class="grain"></div>
   <div class="wrap">
     <h2>Let the cheap horse run. <em>Check</em> before it crosses the line.</h2>
