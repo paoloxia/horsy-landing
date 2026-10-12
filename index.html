@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Horsy · Claude Code plugin</title>
 <meta name="description" content="Horsy is a Claude Code plugin. It sends each subtask to the cheapest model that can do it, checks the work, and steps up a model if the check fails.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20448%20512%27%3E%3Cpath%20fill%3D%27%23D9541E%27%20d%3D%27M96%2048L82.7%2061.3C70.7%2073.3%2064%2089.5%2064%20106.5V238.9c0%2010.7%205.3%2020.7%2014.2%2026.6l10.6%207c14.3%209.6%2032.7%2010.7%2048.1%203l3.2-1.6c2.6-1.3%205-2.8%207.3-4.5l49.4-37c6.6-5%2015.7-5%2022.3%200c10.2%207.7%209.9%2023.1-.7%2030.3L90.4%20350C73.9%20361.3%2064%20380%2064%20400H384l28.9-159c2.1-11.3%203.1-22.8%203.1-34.3V192C416%2086%20330%200%20224%200H83.8C72.9%200%2064%208.9%2064%2019.8c0%207.5%204.2%2014.3%2010.9%2017.7L96%2048zm24%2068a20%2020%200%201%201%2040%200%2020%2020%200%201%201%20-40%200zM22.6%20473.4c-4.2%204.2-6.6%2010-6.6%2016C16%20501.9%2026.1%20512%2038.6%20512H409.4c12.5%200%2022.6-10.1%2022.6-22.6c0-6-2.4-11.8-6.6-16L384%20432H64L22.6%20473.4z%27/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="media/favicon-16.png">
+<link rel="apple-touch-icon" href="media/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,7 +31,7 @@ nav{position:fixed;top:14px;left:16px;right:16px;z-index:50;display:flex;justify
 .navbar{display:flex;align-items:center;gap:26px;width:100%;max-width:1080px;padding:9px 10px 9px 18px;border-radius:999px;
   background:rgba(22,20,15,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(233,227,214,.12);color:var(--cream)}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;font:400 1.55rem/1 var(--serif);color:#fff}
-.brand svg{width:20px;height:22px;fill:var(--silk)}
+.brand svg{width:26px;height:26px;color:#F4F1EA;--mane:var(--silk-hi)}
 .navlinks{display:flex;gap:22px;margin-left:auto;font-size:.9rem}
 .navlinks a{text-decoration:none;color:#CFC7B6;transition:color .2s}
 .navlinks a:hover{color:#fff}
@@ -50,8 +52,6 @@ nav{position:fixed;top:14px;left:16px;right:16px;z-index:50;display:flex;justify
 .grain{position:absolute;inset:0;pointer-events:none;opacity:.2;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .hero .wrap{position:relative;z-index:2}
-.badge{display:inline-flex;align-items:center;gap:10px;font:500 .8rem/1 var(--mono);color:var(--cream);border:1px solid rgba(233,227,214,.22);background:rgba(22,20,15,.4);border-radius:999px;padding:8px 14px 8px 8px}
-.badge b{background:var(--silk);color:#fff;border-radius:999px;padding:4px 9px;font-weight:600}
 .hero h1{font:400 clamp(3rem,7vw,5.4rem)/.98 var(--serif);letter-spacing:-.02em;margin:26px auto 0;max-width:15ch}
 .hero h1 em{font-style:italic;color:#FFD9C2}
 .hero .sub{font-size:clamp(1.05rem,1.9vw,1.25rem);color:#D8D0C0;max-width:600px;margin:24px auto 0}
@@ -174,7 +174,7 @@ h2 em{font-style:italic;color:var(--silk)}
 /* teams */
 .teams{background:var(--sand);border-radius:28px;padding:64px 56px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
 .teams > *{position:relative;z-index:1}
-.teams .knight-bg{position:absolute;right:-20px;bottom:-70px;width:250px;height:290px;fill:var(--ink);opacity:.07;z-index:0}
+.teams .knight-bg{position:absolute;right:-30px;bottom:-40px;width:300px;height:300px;color:var(--ink);opacity:.07;z-index:0}
 .teams p{color:var(--ink2);font-size:1.05rem}
 
 /* pricing */
@@ -243,9 +243,9 @@ footer .brand{font-size:1.25rem}
 </head>
 <body>
 
-<!-- Icons: Font Awesome Free 6.5.2 (chess-knight), CC BY 4.0, https://fontawesome.com/license/free -->
+<!-- Horsy knight mark (brand/logo/horsy-mark.svg) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="knight" viewBox="0 0 448 512"><path d="M96 48L82.7 61.3C70.7 73.3 64 89.5 64 106.5V238.9c0 10.7 5.3 20.7 14.2 26.6l10.6 7c14.3 9.6 32.7 10.7 48.1 3l3.2-1.6c2.6-1.3 5-2.8 7.3-4.5l49.4-37c6.6-5 15.7-5 22.3 0c10.2 7.7 9.9 23.1-.7 30.3L90.4 350C73.9 361.3 64 380 64 400H384l28.9-159c2.1-11.3 3.1-22.8 3.1-34.3V192C416 86 330 0 224 0H83.8C72.9 0 64 8.9 64 19.8c0 7.5 4.2 14.3 10.9 17.7L96 48zm24 68a20 20 0 1 1 40 0 20 20 0 1 1 -40 0zM22.6 473.4c-4.2 4.2-6.6 10-6.6 16C16 501.9 26.1 512 38.6 512H409.4c12.5 0 22.6-10.1 22.6-22.6c0-6-2.4-11.8-6.6-16L384 432H64L22.6 473.4z"/></symbol>
+  <symbol id="knight" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M31 72l11-18H29L18 44l24-24 5-12 10 9c13 7 20 20 19 35l-4 20z M41 31l6-3 1 6z"/><path fill="var(--mane,currentColor)" d="M57 17c13 7 20 20 19 35l-4 20h-7l4-20c1-13-4-25-14-32z"/><path fill="currentColor" d="M25 76h51l3 7H22z M18 85h65v7H18z"/></symbol>
 </svg>
 
 <nav aria-label="Main">
@@ -267,7 +267,6 @@ footer .brand{font-size:1.25rem}
   <div class="shade"></div>
   <div class="grain"></div>
   <div class="wrap">
-    <span class="badge"><b>NEW</b>A plugin for Claude Code · early access</span>
     <h1>Every “done” checked. No more grep on <em>Opus</em>.</h1>
     <p class="sub">Horsy sends each subtask your agent spawns to the cheapest model that can do it, checks the result, and moves up one model if the check fails.</p>
 
@@ -393,7 +392,7 @@ footer .brand{font-size:1.25rem}
 <section id="teams">
   <div class="wrap">
     <div class="teams">
-      <svg class="knight-bg" viewBox="0 0 448 512" aria-hidden="true"><use href="#knight"/></svg>
+      <svg class="knight-bg" viewBox="0 0 100 100" aria-hidden="true"><use href="#knight"/></svg>
       <div>
         <p class="kick">For teams</p>
         <h2 style="font-size:clamp(2rem,4.4vw,3.3rem)">See and cap your team’s AI spend, <em>without</em> slowing anyone down.</h2>
