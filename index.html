@@ -152,7 +152,11 @@ h2 em{font-style:italic;color:var(--silk)}
 .receipt{font-family:var(--mono);background:#FFFDF8;border:1px dashed #A89F8C;border-radius:8px;padding:26px 28px;box-shadow:0 24px 50px -30px rgba(22,20,15,.35);transform:rotate(-1deg)}
 .receipt h4{font:400 1.6rem var(--serif);margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline}
 .receipt h4 span{font:400 .72rem var(--mono);color:var(--grey)}
-.receipt .r{display:grid;grid-template-columns:1fr auto auto auto;gap:14px;border-bottom:1px dotted #CFC7B6;padding:8px 0;font-size:.82rem;color:var(--ink2)}
+.receipt .r{display:grid;grid-template-columns:1fr 4.2em 4.2em 8.2em;gap:10px;border-bottom:1px dotted #CFC7B6;padding:8px 0;font-size:.82rem;color:var(--ink2)}
+.receipt .r span:last-child{text-align:right}
+.receipt .r.lost{background:rgba(217,84,30,.06);margin:0 -10px;padding-left:10px;padding-right:10px}
+.receipt .sub{display:flex;justify-content:space-between;font-size:.78rem;color:var(--grey);padding:6px 0}
+.receipt .sub:first-of-type{padding-top:12px}
 .receipt .k{color:var(--ok)}.receipt .f{color:var(--red)}
 .receipt .tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px}
 .receipt .tot b{font:400 2.6rem/1 var(--serif);color:var(--silk)}
@@ -166,10 +170,10 @@ h2 em{font-style:italic;color:var(--silk)}
 /* print animation: paper feeds out of the slot, lines land one by one */
 .js .receipt.wait{clip-path:inset(0 0 100% 0)}
 .js .receipt.wait > *{opacity:0}
-.receipt.go{animation:feed 2.6s steps(26) forwards}
-.receipt.go > *{animation:land .25s ease-out forwards;animation-delay:calc(var(--i)*.38s + .15s);opacity:0}
+.receipt.go{animation:feed var(--dur,5.2s) cubic-bezier(.45,.05,.55,.95) forwards}
+.receipt.go > *{animation:land .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s);opacity:0}
 @keyframes feed{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes land{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes land{from{opacity:0;transform:translateY(-6px);filter:blur(2px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.js .receipt.wait{clip-path:none}.js .receipt.wait > *{opacity:1}}
 .receipt small{display:block;font:400 .78rem/1.4 var(--sans);color:var(--grey);margin-top:12px}
 
@@ -367,13 +371,18 @@ footer .brand{font-size:1.25rem}
       <div class="printer" aria-label="Illustrative receipt">
         <div class="slot"></div>
         <div class="receipt" id="receipt">
-          <h4>Receipt <span>write-test-stub</span></h4>
-          <p class="meta">horsy · session 0412 · 14:02:11</p>
-          <div class="r"><span>sonnet</span><span>$0.014</span><span>4.2s</span><span class="f">✗ no assertions</span></div>
-          <div class="r"><span>verify</span><span>$0.001</span><span>0.3s</span><span class="f">→ step up</span></div>
-          <div class="r"><span>opus</span><span>$0.061</span><span>7.8s</span><span class="k">✓ pass</span></div>
-          <div class="tot"><span>step net vs opus-only</span><b id="rtot">+$0.015</b></div>
-          <small>Illustrative format. This step cost more, and the receipt shows it.</small>
+          <h4>Receipt <span>session 0412</span></h4>
+          <p class="meta">horsy · refactor auth + tests · 14:02:11</p>
+          <div class="r"><span>rename-symbol</span><span>haiku</span><span>$0.002</span><span class="k">✓ pass</span></div>
+          <div class="r"><span>grep-call-sites</span><span>haiku</span><span>$0.001</span><span class="k">✓ pass</span></div>
+          <div class="r lost"><span>write-test-stub</span><span>sonnet</span><span>$0.014</span><span class="f">✗ empty</span></div>
+          <div class="r lost"><span>&nbsp;&nbsp;↳ verify</span><span>horsy</span><span>$0.001</span><span class="f">→ step up</span></div>
+          <div class="r lost"><span>write-test-stub</span><span>opus</span><span>$0.061</span><span class="k">✓ pass</span></div>
+          <div class="r"><span>refactor-module</span><span>opus</span><span>$0.180</span><span class="k">✓ kept</span></div>
+          <div class="sub"><span>this step vs opus-only</span><span class="f">+$0.015 · lost</span></div>
+          <div class="sub"><span>false “done” caught</span><span>1</span></div>
+          <div class="tot"><span>session net vs opus-only</span><b id="rtot">−$0.030</b></div>
+          <small>Illustrative format. Every step gets a line, including the ones that cost more.</small>
         </div>
       </div>
     </div>
@@ -469,13 +478,19 @@ footer .brand{font-size:1.25rem}
 const lanes=document.getElementById('lanes');
 const setW=()=>lanes.style.setProperty('--w',lanes.clientWidth+'px');
 setW();addEventListener('resize',setW);
-// receipt prints when it scrolls into view (replays each time)
+// receipt prints when it is well in view (replays each time)
 document.documentElement.classList.add('js');
 (()=>{const r=document.getElementById('receipt'),tot=document.getElementById('rtot');if(!r)return;
- [...r.children].forEach((c,i)=>c.style.setProperty('--i',i));r.classList.add('wait');
+ const DUR=5.2;r.style.setProperty('--dur',DUR+'s');r.classList.add('wait');
+ const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+ const inv=y=>{let lo=0,hi=1;for(let i=0;i<20;i++){const m=(lo+hi)/2;ease(m)<y?lo=m:hi=m}return lo}; // time when feed reaches y
+ const sync=()=>{const H=r.offsetHeight;[...r.children].forEach(c=>c.style.setProperty('--d',(inv((c.offsetTop+c.offsetHeight*.6)/H)*DUR-.25).toFixed(2)+'s'))};
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const count=()=>{const t0=performance.now(),d=700;const f=n=>{const p=Math.min(1,(n-t0)/d);tot.textContent='+$'+(0.015*(1-Math.pow(1-p,3))).toFixed(3);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
- new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){r.classList.remove('go');void r.offsetWidth;r.classList.remove('wait');r.classList.add('go');tot.textContent='+$0.000';setTimeout(count,5*380+150)}else{r.classList.remove('go');r.classList.add('wait')}}),{threshold:.35}).observe(r.parentElement);
+ const count=()=>{const t0=performance.now(),d=1100;const f=n=>{const p=Math.min(1,(n-t0)/d);tot.textContent='−$'+(0.03*(1-Math.pow(1-p,3))).toFixed(3);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+ let timer;
+ new IntersectionObserver(es=>es.forEach(e=>{clearTimeout(timer);
+   if(e.isIntersecting){sync();r.classList.remove('go');void r.offsetWidth;r.classList.remove('wait');r.classList.add('go');tot.textContent='−$0.000';timer=setTimeout(count,(parseFloat(getComputedStyle(tot.parentElement).getPropertyValue('--d'))||DUR*.8)*1000+300)}
+   else{r.classList.remove('go');r.classList.add('wait')}}),{rootMargin:'-20% 0px -20% 0px',threshold:.6}).observe(r.parentElement);
 })();
 // autoplay fallback
 document.querySelectorAll('.bgv').forEach(v=>{const p=()=>v.play().catch(()=>{});p();new IntersectionObserver(e=>e[0].isIntersecting&&p()).observe(v)});
