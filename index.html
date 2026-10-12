@@ -101,12 +101,8 @@ nav{position:fixed;top:14px;left:16px;right:16px;z-index:50;display:flex;justify
 
 /* ---------- floating product window ---------- */
 .window-wrap{position:relative;z-index:5;padding:0 20px}
-.window{max-width:980px;margin:-120px auto 0;background:#0F0E0B;border-radius:16px;border:1px solid #2A2720;box-shadow:0 40px 80px -30px rgba(22,20,15,.55),0 0 0 6px rgba(233,227,214,.08);overflow:hidden;color:#E9E3D6}
-.wbar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid #24211B}
-.wbar i{width:11px;height:11px;border-radius:50%;background:#3A362E}
-.wbar span{margin-left:auto;font:400 .74rem var(--mono);color:#8C8475}
-.window pre{font:400 .84rem/1.85 var(--mono);padding:20px 22px 24px;overflow-x:auto;white-space:pre}
-.dim{color:#8C8475}.hz{color:var(--silk-hi)}.gk{color:#7BC79A}.rd{color:#FF9673}
+.demo{max-width:1100px;margin:-120px auto 0;border-radius:18px;overflow:hidden;line-height:0;background:#16140F;box-shadow:0 40px 80px -30px rgba(22,20,15,.55),0 0 0 6px rgba(233,227,214,.08)}
+.demo video{width:100%;height:auto;aspect-ratio:16/9;display:block}
 .wcap{text-align:center;font-size:.82rem;color:var(--grey);margin:14px auto 0;max-width:980px}
 
 /* ---------- sections ---------- */
@@ -239,7 +235,6 @@ footer .brand{font-size:1.25rem}
   .board .item:first-child{border-top:0;padding-top:0}
   .teams{padding:40px 26px}
   section{padding:84px 0}
-  .window pre{font-size:.7rem}
   .lane{height:58px}
   .gallop{--fw:66px;--fh:41px}
   .lane .lbl i{display:none}
@@ -315,20 +310,10 @@ footer .brand{font-size:1.25rem}
 
 <!-- PRODUCT WINDOW -->
 <div class="window-wrap">
-  <div class="window">
-    <div class="wbar"><i></i><i></i><i></i><span>claude code · horsy on</span></div>
-<pre><span class="dim">› agent spawned 4 subtasks</span>
-
-<span class="hz">horsy</span> ▸ rename-symbol      haiku    <span class="dim">$0.002  1.1s</span>  <span class="gk">✓ verified</span>
-<span class="hz">horsy</span> ▸ grep-call-sites    haiku    <span class="dim">$0.001  0.8s</span>  <span class="gk">✓ verified</span>
-<span class="hz">horsy</span> ▸ write-test-stub    sonnet   <span class="dim">$0.014  4.2s</span>  <span class="rd">✗ said done, test file empty → step up</span>
-<span class="hz">horsy</span> ▸ write-test-stub    opus     <span class="dim">$0.061  7.8s</span>  <span class="gk">✓ verified</span>
-<span class="hz">horsy</span> ▸ refactor-module    opus     <span class="dim">$0.180 22.4s</span>  <span class="gk">✓ verified</span>  <span class="dim">(kept on opus)</span>
-
-<span class="dim">─ session ──────────────────────────────────────────────────</span>
-  3 of 4 routed down · 1 false “done” caught · net cost −$0.03 vs all-Opus · net time −3s</pre>
+  <div class="demo">
+    <video id="demo" muted loop playsinline preload="none" poster="media/demo.jpg" aria-label="Demo: Horsy routes four subtasks to cheaper models, its verifier rejects a false done from sonnet and steps it up to opus, then shows the session receipt."></video>
   </div>
-  <p class="wcap">Illustrative example of the demo recording. Numbers show the format, they are not measured.</p>
+  <p class="wcap">Illustrative demo. Numbers show the format, they are not measured.</p>
 </div>
 
 <!-- PROBLEM -->
@@ -491,6 +476,12 @@ document.documentElement.classList.add('js');
  new IntersectionObserver(es=>es.forEach(e=>{clearTimeout(timer);
    if(e.isIntersecting){sync();r.classList.remove('go');void r.offsetWidth;r.classList.remove('wait');r.classList.add('go');tot.textContent='−$0.000';timer=setTimeout(count,(parseFloat(getComputedStyle(tot.parentElement).getPropertyValue('--d'))||DUR*.8)*1000+300)}
    else{r.classList.remove('go');r.classList.add('wait')}}),{rootMargin:'-20% 0px -20% 0px',threshold:.6}).observe(r.parentElement);
+})();
+// demo video: load + play only when it scrolls into view
+(()=>{const v=document.getElementById('demo');if(!v)return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ let vis=false;v.addEventListener('loadeddata',()=>vis&&v.play().catch(()=>{}));
+ new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;if(vis){if(!v.src){v.src='media/demo.mp4'}v.play().catch(()=>{})}else if(v.src)v.pause()}),{threshold:.35}).observe(v);
 })();
 // autoplay fallback
 document.querySelectorAll('.bgv').forEach(v=>{const p=()=>v.play().catch(()=>{});p();new IntersectionObserver(e=>e[0].isIntersecting&&p()).observe(v)});
