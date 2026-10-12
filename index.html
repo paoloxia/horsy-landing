@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Horsy · Claude Code plugin</title>
+<script>document.documentElement.classList.add('js')</script>
 <meta name="description" content="Horsy is a Claude Code plugin. It sends each subtask to the cheapest model that can do it, checks the work, and steps up a model if the check fails.">
 <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="media/favicon-16.png">
@@ -226,7 +227,145 @@ footer .brand{font-size:1.25rem}
 .grain{z-index:1}
 @media (prefers-reduced-motion:reduce){.bgv{display:none}}
 
+
+/* ===== v3 graphic layer ===== */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js [data-reveal].in{opacity:1;transform:none}
+.dark{background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
+.dark h2{color:#fff}.dark h2 em{color:var(--silk-hi)}.dark .lede{color:#B7AE9C}
+.dark .kick{color:var(--silk-hi)}
+
+/* ticker */
+.ticker{background:var(--ink);color:#CFC7B6;overflow:hidden;white-space:nowrap;border-top:1px solid #2A2720;border-bottom:1px solid #2A2720;margin-top:70px}
+.ticker .tk{display:inline-flex;gap:56px;padding:16px 0;font:400 .82rem var(--mono);animation:tick 48s linear infinite}
+.ticker .tk span b{color:var(--silk-hi);font-weight:400}.ticker .ok{color:#7BC79A}.ticker .ko{color:#FF9673}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* problem visuals */
+.viz{margin-top:22px;border-radius:12px;background:var(--ink);color:#CFC7B6;font:400 .78rem/1.7 var(--mono);padding:14px 16px;min-height:118px}
+.viz .ok{color:#7BC79A}.viz .ko{color:#FF9673}.viz .dim{color:#7E776A}
+.bars{display:flex;align-items:flex-end;gap:10px;height:90px}
+.bars i{flex:1;border-radius:6px 6px 2px 2px;background:var(--silk);position:relative}
+.bars i::after{content:attr(data-l);position:absolute;bottom:-20px;left:0;right:0;text-align:center;font:400 .62rem var(--mono);color:#8C8475;font-style:normal}
+.bars.right i:nth-child(1),.bars.right i:nth-child(2){background:#5A5448}
+.picker{display:grid;gap:7px}
+.picker span{display:flex;justify-content:space-between;border:1px solid #2E2A23;border-radius:7px;padding:3px 10px}
+.picker span em{font-style:normal;color:var(--silk-hi)}
+.mult{display:flex;align-items:flex-end;gap:5px;height:90px}
+.mult i{flex:1;background:linear-gradient(var(--silk-hi),var(--silk));border-radius:3px;opacity:.9}
+
+/* rail + gate */
+.steps{position:relative}
+.rail{position:absolute;left:28px;right:28px;top:-26px;height:2px;background:var(--line)}
+.rail::before{content:"";position:absolute;left:0;top:0;height:2px;width:33%;background:var(--silk)}
+.rail i{position:absolute;top:-6px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid var(--line)}
+.rail i:nth-child(1){left:0;border-color:var(--silk);background:var(--silk);box-shadow:0 0 0 6px rgba(217,84,30,.18);animation:pulse 2s ease-in-out infinite}
+.rail i:nth-child(2){left:calc(33.3% + 5px)}.rail i:nth-child(3){left:calc(66.6% + 10px)}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(217,84,30,0)}}
+.gatebox{margin-top:28px;background:var(--ink);border-radius:20px;padding:26px 28px 18px;color:#CFC7B6;position:relative;overflow:hidden}
+.gatebox .glanes{position:relative;--w:900px}
+.gl{height:58px;border-bottom:1px dashed rgba(255,255,255,.14);position:relative}
+.gl:first-child{border-top:1px dashed rgba(255,255,255,.14)}
+.gl b{position:absolute;left:0;top:8px;font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8C8475;font-weight:500}
+.ggate{position:absolute;top:0;bottom:0;left:55%;width:2px;background:repeating-linear-gradient(180deg,var(--silk-hi) 0 6px,transparent 6px 12px)}
+.ggate::after{content:"verify";position:absolute;top:-28px;left:50%;transform:translateX(-50%);font:600 .68rem var(--mono);background:var(--paper);color:var(--ink);padding:3px 9px;border-radius:999px}
+.gfin{position:absolute;top:0;bottom:0;right:0;width:10px;background:repeating-conic-gradient(#fff 0 25%,var(--ink) 0 50%) 0 0/10px 10px;opacity:.85}
+.runner{position:absolute;left:0;top:58px;animation:gx 6s linear infinite}
+.runner .hop{animation:gy 6s linear infinite}
+.runner .gallop{background:var(--paper)}
+@keyframes gx{0%{transform:translateX(-90px)}42%{transform:translateX(calc(var(--w)*.55 - 92px))}50%{transform:translateX(calc(var(--w)*.55 - 60px))}88%,100%{transform:translateX(calc(var(--w) - 100px))}}
+@keyframes gy{0%,42%{transform:translateY(0)}46%{transform:translateY(-44px)}50%,100%{transform:translateY(-58px)}}
+.gchip{position:absolute;font:500 .72rem var(--mono);padding:4px 9px;border-radius:6px;opacity:0}
+.gchip.ko{left:calc(55% + 12px);top:72px;background:#2A1A14;color:#FF9673;animation:gko 6s linear infinite}
+.gchip.ok{right:22px;top:14px;background:var(--paper);color:var(--ok);animation:gok 6s linear infinite}
+@keyframes gko{0%,40%{opacity:0}43%,62%{opacity:1}68%,100%{opacity:0}}
+@keyframes gok{0%,84%{opacity:0}88%,98%{opacity:1}100%{opacity:0}}
+.gcap{font:400 .74rem var(--mono);color:#8C8475;margin-top:12px}
+
+/* under the hood */
+.hood{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:0;margin-top:56px;position:relative;align-items:center}
+.hood svg.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wires path{fill:none;stroke:#3A362E;stroke-width:2}
+.wires path.flow{stroke:var(--silk-hi);stroke-dasharray:6 14;animation:flow 1.6s linear infinite;opacity:.9}
+@keyframes flow{to{stroke-dashoffset:-40}}
+.hcol{display:grid;gap:12px;position:relative;z-index:1}
+.hbox{background:#1E1B15;border:1px solid #2E2A23;border-radius:14px;padding:14px 16px}
+.hbox h4{font:400 1.35rem var(--serif);color:#fff;margin-bottom:4px}
+.hbox p{font-size:.86rem;color:#B7AE9C}
+.hbox code{color:var(--silk-hi)}
+.engine{background:linear-gradient(160deg,#2A1A12,#1E1B15);border:1px solid rgba(240,122,62,.4);border-radius:20px;padding:22px;margin:0 34px;box-shadow:0 0 60px -10px rgba(217,84,30,.35)}
+.engine h4{font:400 1.8rem var(--serif);color:#fff;display:flex;align-items:center;gap:10px}
+.engine h4 svg{width:30px;height:30px;color:var(--paper);--mane:var(--silk-hi)}
+.engine ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.engine li{font:400 .8rem var(--mono);border:1px solid #3A2A20;border-radius:9px;padding:9px 10px;color:#E9E3D6}
+.engine li span{color:var(--silk-hi);margin-right:6px}
+.model{display:flex;justify-content:space-between;align-items:center}
+.model i{font-style:normal;font:400 .72rem var(--mono);color:#8C8475}
+.model.later{opacity:.55;border-style:dashed}
+.hnote{margin-top:22px;font-size:.85rem;color:#8C8475}
+
+/* verify layers */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px;align-items:start}
+.layers{display:grid;gap:12px}
+.layer{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;background:var(--paper2);border:1px solid var(--line);border-radius:16px;padding:18px}
+.layer .num{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font:400 1.6rem var(--serif);background:var(--ink);color:var(--paper)}
+.layer:nth-child(2) .num{background:var(--ink2)}.layer:nth-child(3) .num{background:var(--silk);color:#fff}
+.layer h3{font:400 1.5rem/1.1 var(--serif);margin-bottom:4px}
+.layer p{font-size:.94rem;color:var(--ink2)}
+.code{background:var(--ink);color:#E9E3D6;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(22,20,15,.5)}
+.code .cbar{display:flex;gap:7px;align-items:center;padding:12px 16px;border-bottom:1px solid #2A2720}
+.code .cbar i{width:10px;height:10px;border-radius:50%;background:#3A362E}
+.code .cbar span{margin-left:auto;font:400 .72rem var(--mono);color:#8C8475}
+.code pre{font:400 .82rem/1.8 var(--mono);padding:18px 20px;overflow-x:auto}
+.c-k{color:var(--silk-hi)}.c-c{color:#7E776A}.c-s{color:#E6C35C}.c-ok{color:#7BC79A}.c-ko{color:#FF9673}
+
+/* config + data */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;margin-top:56px;align-items:start}
+.dtable{width:100%;border-collapse:collapse;font-size:.95rem}
+.dtable th{text-align:left;font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8C8475;padding:0 0 12px;font-weight:500}
+.dtable td{padding:14px 0;border-top:1px solid #2E2A23;vertical-align:top;color:#CFC7B6}
+.dtable td:first-child{color:#fff;width:42%}
+.tag-l{display:inline-block;font:500 .7rem var(--mono);padding:3px 9px;border-radius:999px;background:rgba(123,199,154,.12);color:#7BC79A;margin-bottom:4px}
+.tag-n{background:rgba(255,150,115,.12);color:#FF9673}
+.tag-s{background:rgba(230,195,92,.12);color:#E6C35C}
+
+/* comparison */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;margin-top:48px;font-size:.98rem}
+.cmp th,.cmp td{padding:16px 18px;border-bottom:1px solid var(--line);text-align:center}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--ink2)}
+.cmp thead th{font:400 1.3rem var(--serif);color:var(--ink);border-bottom:2px solid var(--ink)}
+.cmp .me{background:var(--ink);color:var(--paper)}
+.cmp thead .me{border-radius:14px 14px 0 0;border-bottom-color:var(--ink);color:#fff}
+.cmp tbody tr:last-child .me{border-radius:0 0 14px 14px}
+.cmp .y{color:var(--ok);font-weight:600}.cmp .n{color:#B5AE9F}.cmp .me .y{color:#7BC79A}
+.cmp small{display:block;font:400 .72rem var(--mono);color:var(--grey);margin-top:4px}
+.cmp .me small{color:#B7AE9C}
+
+/* faq */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;font:400 1.45rem/1.2 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 1.6rem var(--sans);color:var(--silk);transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--ink2);max-width:70ch;padding:0 0 22px}
+
 @media (max-width:900px){
+  .hood,.vgrid,.split{grid-template-columns:1fr}
+  .vgrid>*,.split>*,.receipt-row>*{min-width:0}
+  .receipt{padding:20px 16px 28px}
+  .receipt .r{grid-template-columns:1fr 3.4em 3.8em 5.8em;gap:6px;font-size:.7rem}
+  .receipt .r.lost{margin:0 -6px;padding-left:6px;padding-right:6px}
+  .slot{margin:0}
+  .code pre{font-size:.7rem}
+  .engine{margin:16px 0}
+  .hood svg.wires{display:none}
+  .cmp{font-size:.82rem}.cmp th,.cmp td{padding:12px 8px}
+  .cmp thead th{font-size:1rem}
+  .rail{display:none}
+
   .navlinks{display:none}
   .navbar .pill{margin-left:auto}
   .bento,.steps,.prices,.guar,.ph,.board,.teams,.receipt-row{grid-template-columns:1fr}
@@ -316,19 +455,21 @@ footer .brand{font-size:1.25rem}
   <p class="wcap">Illustrative demo. Numbers show the format, they are not measured.</p>
 </div>
 
+<div class="ticker" aria-hidden="true"><div class="tk"><span><b>horsy ▸</b> rename-symbol · haiku · $0.002 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> write-test-stub · sonnet · <i class="ko">✗ said done, file empty</i> → opus</span><span><b>horsy ▸</b> grep-call-sites · haiku · $0.001 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> refactor-module · opus · $0.180 · <i class="ok">✓ kept on opus</i></span><span><b>horsy ▸</b> update-imports · haiku · $0.003 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> fix-lint · haiku · <i class="ko">✗ lint still failing</i> → sonnet</span><span><b>horsy ▸</b> session · net −$0.03 vs all-Opus · 1 false “done” caught</span><span style="color:#7E776A">illustrative receipts</span><span><b>horsy ▸</b> rename-symbol · haiku · $0.002 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> write-test-stub · sonnet · <i class="ko">✗ said done, file empty</i> → opus</span><span><b>horsy ▸</b> grep-call-sites · haiku · $0.001 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> refactor-module · opus · $0.180 · <i class="ok">✓ kept on opus</i></span><span><b>horsy ▸</b> update-imports · haiku · $0.003 · <i class="ok">✓ verified</i></span><span><b>horsy ▸</b> fix-lint · haiku · <i class="ko">✗ lint still failing</i> → sonnet</span><span><b>horsy ▸</b> session · net −$0.03 vs all-Opus · 1 false “done” caught</span><span style="color:#7E776A">illustrative receipts</span></div></div>
+
 <!-- PROBLEM -->
 <section>
   <div class="wrap">
     <p class="kick">The problem</p>
     <h2>Your agent runs everything on the biggest model, and says <em>“done”</em> too early.</h2>
-    <div class="bento">
-      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>“Done” that isn’t done</h3><p>The agent reports success. You find out later. The rework costs more than the original task.</p></div>
-      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>Opus for everything</h3><p>Renaming a variable, grepping call sites, writing a test stub. All on the most expensive model, burning quota or money.</p></div>
-      <div class="cell"><h3>Nobody picks models by hand</h3><p>Choosing a model per subtask, every time, is tedious. So nobody does it.</p></div>
-      <div class="cell"><h3>It scales the wrong way</h3><p>Every parallel agent and every CI run multiplies the waste.</p></div>
+    <div class="bento" data-reveal>
+      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>“Done” that isn’t done</h3><p>The agent reports success. You find out later. The rework costs more than the original task.</p><div class="viz"><span class="ok">✓ Task complete.</span> Added tests for auth.<br><span class="dim">$ npm test auth.test.ts</span><br><span class="ko">0 tests, 0 assertions</span></div></div>
+      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>Opus for everything</h3><p>Renaming a variable, grepping call sites, writing a test stub. All on the most expensive model, burning quota or money.</p><div class="viz" style="padding-bottom:28px"><div class="bars"><i data-l="rename" style="height:100%"></i><i data-l="grep" style="height:100%"></i><i data-l="stub" style="height:100%"></i><i data-l="refactor" style="height:100%"></i></div></div></div>
+      <div class="cell"><h3>Nobody picks models by hand</h3><p>Choosing a model per subtask, every time, is tedious. So nobody does it.</p><div class="viz picker"><span>rename-symbol <em>opus ▾</em></span><span>grep-call-sites <em>opus ▾</em></span><span>write-test-stub <em>opus ▾</em></span></div></div>
+      <div class="cell"><h3>It scales the wrong way</h3><p>Every parallel agent and every CI run multiplies the waste.</p><div class="viz"><div class="mult"><i style="height:12%"></i><i style="height:18%"></i><i style="height:22%"></i><i style="height:30%"></i><i style="height:34%"></i><i style="height:42%"></i><i style="height:48%"></i><i style="height:57%"></i><i style="height:63%"></i><i style="height:72%"></i><i style="height:80%"></i><i style="height:91%"></i></div></div></div>
     </div>
 
-    <div class="board">
+    <div class="board" data-reveal>
       <div class="item"><span class="tagline">Early internal test · not a coding workload</span><b>−54.8%</b><p>vs Opus-only, on a replay of 200 real agent steps from an outbound sales workflow, at 95% agreement. Not yet tested on coding tasks.</p></div>
       <div class="item"><span class="tagline">Early internal test · seeded errors</span><b>6 to 10 of 14</b><p>planted errors caught by Horsy’s check, against 4 for a small model used as a judge. $0.01 vs $1.10.</p></div>
     </div>
@@ -341,13 +482,23 @@ footer .brand{font-size:1.25rem}
     <p class="kick">How it works</p>
     <h2>Cheapest model first. Check. <em>Step up</em> if it fails.</h2>
     <p class="lede">That loop never changes. What changes is how much Horsy is allowed to do, and it earns each step on your own repo.</p>
-    <div class="steps">
+    <div class="steps" data-reveal><div class="rail"><i></i><i></i><i></i></div>
       <div class="step on"><div class="n">01 <span>day one · zero risk</span></div><h3>Verify</h3><p>Every “done” gets checked before it is accepted. If the work isn’t there, you hear it now, not in code review.</p></div>
       <div class="step"><div class="n">02 <span>changes nothing</span></div><h3>Shadow</h3><p>Horsy watches your sessions and tells you what it would have routed, and what that would have saved. Your models stay as they are.</p></div>
       <div class="step"><div class="n">03 <span>per task type</span></div><h3>Active</h3><p>Turns on only for task types where your repo’s data shows it costs less and breaks nothing. Everything else stays on your default.</p></div>
     </div>
 
-    <div class="receipt-row">
+    <div class="gatebox" data-reveal aria-label="Animation: a task runs on a mid model, fails the verify gate and steps up to the frontier model, which passes.">
+      <div class="glanes" id="glanes">
+        <div class="gl"><b>opus</b></div><div class="gl"><b>sonnet</b></div><div class="gl"><b>haiku</b></div>
+        <div class="ggate"></div><div class="gfin"></div>
+        <div class="runner"><div class="hop"><i class="gallop"></i></div></div>
+        <span class="gchip ko">✗ said done · step up</span><span class="gchip ok">✓ verified</span>
+      </div>
+      <p class="gcap">cheapest rung that can do it → verify → one rung up only if it fails</p>
+    </div>
+
+    <div class="receipt-row" data-reveal>
       <div>
         <p class="kick">The receipt</p>
         <h2 style="font-size:clamp(2rem,4vw,3.1rem)">One line per step. Even when it <em>lost</em>.</h2>
@@ -374,13 +525,78 @@ footer .brand{font-size:1.25rem}
   </div>
 </section>
 
+<!-- UNDER THE HOOD -->
+<section class="dark" id="hood">
+  <div class="wrap">
+    <p class="kick">Under the hood</p>
+    <h2>Three hooks. One engine. <em>Your</em> subagents.</h2>
+    <p class="lede">Opus still plans. Horsy sits between the plan and the work, and only on the work your agent delegates.</p>
+    <div class="hood" data-reveal>
+      <svg class="wires" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M300 70 C 340 70 330 200 370 200"/><path class="flow" d="M300 70 C 340 70 330 200 370 200"/>
+        <path d="M300 200 L 370 200"/><path class="flow" d="M300 200 L 370 200"/>
+        <path d="M300 330 C 340 330 330 200 370 200"/><path class="flow" d="M300 330 C 340 330 330 200 370 200"/>
+        <path d="M630 200 C 670 200 660 60 700 60"/><path class="flow" d="M630 200 C 670 200 660 60 700 60"/>
+        <path d="M630 200 C 670 200 660 160 700 160"/><path class="flow" d="M630 200 C 670 200 660 160 700 160"/>
+        <path d="M630 200 C 670 200 660 260 700 260"/><path class="flow" d="M630 200 C 670 200 660 260 700 260"/>
+      </svg>
+      <div class="hcol">
+        <div class="hbox"><h4>SessionStart</h4><p>Loads Horsy’s rules into the session.</p></div>
+        <div class="hbox"><h4>PreToolUse <code>· Agent</code></h4><p>Sees each subtask before it runs and picks the model.</p></div>
+        <div class="hbox"><h4>Stop</h4><p>Won’t let the session close until the check passes.</p></div>
+      </div>
+      <div class="engine">
+        <h4><svg aria-hidden="true"><use href="#knight"/></svg>Horsy engine</h4>
+        <ol><li><span>01</span>classify</li><li><span>02</span>pick rung</li><li><span>03</span>verify</li><li><span>04</span>receipt</li></ol>
+      </div>
+      <div class="hcol">
+        <div class="hbox model"><h4>haiku</h4><i>rung 1</i></div>
+        <div class="hbox model"><h4>sonnet</h4><i>rung 2</i></div>
+        <div class="hbox model"><h4>opus</h4><i>rung 3</i></div>
+        <div class="hbox model later"><h4>other providers</h4><i>later</i></div>
+      </div>
+    </div>
+    <p class="hnote">Your main session is never touched. Routing decisions run locally in tens of milliseconds.</p>
+  </div>
+</section>
+
+<!-- VERIFY -->
+<section id="verify">
+  <div class="wrap">
+    <p class="kick">How verify works</p>
+    <h2>Cheap checks first. A judge only <em>where tests can’t</em> tell.</h2>
+    <div class="vgrid" data-reveal>
+      <div class="layers">
+        <div class="layer"><span class="num">1</span><div><h3>Tests, lint, typecheck</h3><p>Deterministic, local, free. Run first, every time there is something to run.</p></div></div>
+        <div class="layer"><span class="num">2</span><div><h3>A judge, only where needed</h3><p>When there are no tests to run, an independent model checks the work. Pluggable: you choose which.</p></div></div>
+        <div class="layer"><span class="num">3</span><div><h3>Fail → one rung up</h3><p>The task goes to the next model with the reason it failed, so it doesn’t repeat the same mistake.</p></div></div>
+      </div>
+      <div class="code">
+        <div class="cbar"><i></i><i></i><i></i><span>verify · write-test-stub</span></div>
+<pre><span class="c-k">horsy ▸</span> verify write-test-stub <span class="c-c">(sonnet)</span>
+  tests      <span class="c-ko">✗ 0 assertions in auth.test.ts</span>
+  lint       <span class="c-ok">✓</span>
+  typecheck  <span class="c-ok">✓</span>
+<span class="c-k">→ step up</span> opus
+  reason     <span class="c-s">"test file has no assertions"</span>
+
+<span class="c-k">horsy ▸</span> verify write-test-stub <span class="c-c">(opus)</span>
+  tests      <span class="c-ok">✓ 6 passed</span>
+  lint       <span class="c-ok">✓</span>
+  typecheck  <span class="c-ok">✓</span>
+<span class="c-ok">accepted</span>  <span class="c-c">· illustrative output</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GUARANTEES -->
 <section id="guarantees" style="background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap">
     <p class="kick">Guarantees</p>
     <h2>Built so it never makes things <em>worse</em>.</h2>
     <p class="lede">These are product rules, not marketing. If it doesn’t pay off, it turns itself off.</p>
-    <div class="guar">
+    <div class="guar" data-reveal>
       <div class="g"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg><b>Main session untouched</b><span>Only subagents get routed.</span></div>
       <div class="g"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><b>Never blocks you</b><span>If Horsy fails or is slow, everything runs as before.</span></div>
       <div class="g"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><b>Local and fast</b><span>Routing runs on your machine in tens of milliseconds. Only metadata leaves it.</span></div>
@@ -401,10 +617,67 @@ footer .brand{font-size:1.25rem}
   </div>
 </section>
 
+<!-- CONFIG + DATA -->
+<section class="dark" id="config">
+  <div class="wrap">
+    <p class="kick">You stay in control</p>
+    <h2>The ladder is <em>config</em>, not magic.</h2>
+    <div class="split" data-reveal>
+      <div class="code" style="background:#0F0E0B;border:1px solid #2A2720">
+        <div class="cbar"><i></i><i></i><i></i><span>horsy.yaml · v0, may change</span></div>
+<pre><span class="c-k">ladder</span>: [haiku, sonnet, opus]
+<span class="c-k">verify</span>:
+  - tests
+  - lint
+  - typecheck
+  - judge          <span class="c-c"># only where there are no tests</span>
+<span class="c-k">budget</span>:
+  session: <span class="c-s">$2.00</span>
+<span class="c-k">pin</span>:
+  refactor: opus   <span class="c-c"># never route this type down</span>
+<span class="c-k">mode</span>: shadow       <span class="c-c"># verify | shadow | active</span></pre>
+      </div>
+      <div>
+        <table class="dtable">
+          <thead><tr><th>What</th><th>Where it lives</th></tr></thead>
+          <tbody>
+            <tr><td>Your code and files</td><td><span class="tag-l">your machine</span><br>Never sent to Horsy’s servers.</td></tr>
+            <tr><td>Model choice and step-up</td><td><span class="tag-l">your machine</span><br>Decided locally, in tens of milliseconds.</td></tr>
+            <tr><td>Session receipts</td><td><span class="tag-l">your machine</span><br>Team plan keeps a copy of the metadata.</td></tr>
+            <tr><td>Routing data</td><td><span class="tag-s">metadata only</span><br>Task type, model, cost, pass or fail. No code.</td></tr>
+            <tr><td>Judge checks</td><td><span class="tag-n">your choice</span><br>A remote judge sees only the snippet it checks. Fully local option on the roadmap.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="wrap">
+    <p class="kick">Why not just a router</p>
+    <h2>Routers pick. Horsy picks, <em>checks</em>, and shows its work.</h2>
+    <div data-reveal style="overflow-x:auto">
+    <table class="cmp">
+      <thead><tr><th></th><th>Model routers</th><th>Model swappers</th><th class="me">Horsy</th></tr></thead>
+      <tbody>
+        <tr><td>Picks a model per task</td><td class="y">✓</td><td class="n">one for all</td><td class="me y">✓</td></tr>
+        <tr><td>Checks the work before accepting “done”</td><td class="n">✗</td><td class="n">✗</td><td class="me y">✓</td></tr>
+        <tr><td>Steps up a rung when the check fails</td><td class="n">✗</td><td class="n">✗</td><td class="me y">✓</td></tr>
+        <tr><td>Receipt per step, with net cost</td><td class="n">✗</td><td class="n">✗</td><td class="me y">✓</td></tr>
+        <tr><td>Native to Claude Code subagents</td><td class="n">n/a</td><td class="y">✓</td><td class="me y">✓</td></tr>
+        <tr><td>Turns itself off where it loses</td><td class="n">✗</td><td class="n">✗</td><td class="me y">✓<small>per task type</small></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
 <!-- TEAMS -->
 <section id="teams">
   <div class="wrap">
-    <div class="teams">
+    <div class="teams" data-reveal>
       <svg class="knight-bg" viewBox="0 0 100 100" aria-hidden="true"><use href="#knight"/></svg>
       <div>
         <p class="kick">For teams</p>
@@ -426,9 +699,25 @@ footer .brand{font-size:1.25rem}
     <p class="kick">Pricing</p>
     <h2>Free to try. Pricing isn’t <em>final</em> yet.</h2>
     <p class="lede">Two options on the table. Tell us which one you’d rather pay for.</p>
-    <div class="prices">
+    <div class="prices" data-reveal>
       <div class="price"><span class="opt">Option A</span><h3>Free plugin, paid team dashboard</h3><p>Verify, shadow and routing are free for individuals. Teams pay for the shared view, budgets and caps.</p><p class="trade"><b>Trade-off:</b> no friction for solo devs, so adoption is easy. But revenue only starts when a team signs up.</p></div>
       <div class="price"><span class="opt">Option B</span><h3>Free up to a monthly volume</h3><p>Free up to a set amount of routed tokens per month. Above that, a flat monthly fee.</p><p class="trade"><b>Trade-off:</b> price grows with the value you get. But heavy solo users hit a paywall, and a meter can feel like a tax.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:40px">
+  <div class="wrap">
+    <p class="kick">FAQ</p>
+    <h2>Questions devs <em>actually</em> ask.</h2>
+    <div class="faq" data-reveal>
+      <details><summary>Does it work on a Claude Max plan?</summary><p>Yes. On a flat plan you don’t save money, you save quota: grunt work stops eating your Opus limits, so the plan lasts longer.</p></details>
+      <details><summary>Will it slow me down?</summary><p>Routing decisions run locally in tens of milliseconds. If Horsy fails or is slow, everything runs as before. It never blocks you.</p></details>
+      <details><summary>What if it routes something wrong?</summary><p>The check catches it and the task steps up one rung, with the reason. If a task type keeps losing, Horsy turns itself off for that type. You can also pin a model per task, or run <code>/horsy off</code>.</p></details>
+      <details><summary>Does my code leave my machine?</summary><p>Not to Horsy’s servers. Routing data is metadata only. If you use a remote judge for tasks without tests, it sees only the snippet it checks.</p></details>
+      <details><summary>Does it beat just using Sonnet for everything?</summary><p>We don’t know yet, and we won’t claim it until we’ve tested it on real coding sessions. The receipts will show it either way, including when the number is negative.</p></details>
+      <details><summary>Does it touch my main session?</summary><p>No. Opus keeps planning in your main session. Horsy only routes the subagents it delegates to.</p></details>
     </div>
   </div>
 </section>
@@ -483,6 +772,11 @@ document.documentElement.classList.add('js');
  let vis=false;v.addEventListener('loadeddata',()=>vis&&v.play().catch(()=>{}));
  new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;if(vis){if(!v.src){v.src='media/demo.mp4'}v.play().catch(()=>{})}else if(v.src)v.pause()}),{threshold:.35}).observe(v);
 })();
+// scroll reveal
+(()=>{const els=document.querySelectorAll('[data-reveal]');if(matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});els.forEach(e=>io.observe(e))})();
+// gate lane width
+(()=>{const g=document.getElementById('glanes');if(!g)return;const s=()=>g.style.setProperty('--w',g.clientWidth+'px');s();addEventListener('resize',s)})();
 // autoplay fallback
 document.querySelectorAll('.bgv').forEach(v=>{const p=()=>v.play().catch(()=>{});p();new IntersectionObserver(e=>e[0].isIntersecting&&p()).observe(v)});
 </script>
