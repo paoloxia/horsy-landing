@@ -139,10 +139,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <a class="btn ghost" href="#how">See how it works</a>
     </div>
     <div class="install mono" id="audit">
-      <span class="p">$</span><code id="cmd">npx horsy audit</code>
+      <span class="p">$</span><code id="cmd">/plugin install horsy</code>
       <button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('cmd').textContent);this.textContent='copied'">copy</button>
     </div>
-    <p class="small muted" style="margin-top:10px">Reads your last Claude Code sessions and shows what they would have cost with Horsy. Changes nothing.</p>
+    <p class="small muted" style="margin-top:10px">Then run <code>/horsy audit</code> inside Claude Code. It reads your last sessions and shows what they would have cost with Horsy. Changes nothing. <b>Not published yet:</b> early access opens soon.</p>
     <div class="reducers"><span>Free</span><span>Runs locally</span><span>Off with one command</span><span>Shadow mode first</span></div>
 
     <div class="term" aria-label="Example Horsy session in the terminal">
