@@ -76,7 +76,6 @@ h2 em{font-style:italic;color:var(--silk)}
 
 /* bento */
 
-/* proof board */
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px}
@@ -271,17 +270,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .facts p{border-top:2px solid var(--ink);padding-top:16px;color:var(--ink2)}
 .facts b{display:block;font:400 1.5rem/1.15 var(--serif);color:var(--ink);margin-bottom:6px;font-weight:400}
 
-/* proof: full-bleed numbers */
-.proof{padding:150px 0 140px;text-align:center}
-.proof .glow{position:absolute;left:50%;top:44%;width:1100px;height:700px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(217,84,30,.42),transparent 70%);filter:blur(10px);pointer-events:none}
-.proof .wrap{position:relative}
-.bignum b{display:block;font:400 clamp(6rem,19vw,17rem)/.9 var(--serif);letter-spacing:-.04em;color:var(--silk-hi);font-variant-numeric:tabular-nums}
-.bigcap{max-width:640px;margin:26px auto 0;color:#CFC7B6;font-size:1.05rem}
-.proof2{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:70px auto 0;text-align:left}
-.proof2>div{border:1px solid #2E2A23;border-radius:18px;padding:24px 26px;background:rgba(255,255,255,.02)}
-.proof2 b{display:block;font:400 2.6rem/1 var(--serif);color:#fff;margin-bottom:10px;font-weight:400}
-.proof2 b span{font-size:1.3rem;color:#8C8475}
-.proof2 p{color:#B7AE9C;font-size:.95rem}
 
 /* race: pinned scroll story */
 .race{height:360vh;position:relative;background:var(--ink);color:var(--cream)}
@@ -360,11 +348,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
   .checks p{gap:8px}
   .rhorse .tasktag{display:none}
   .lie{padding-top:110px}
-  .proof{padding:110px 0}
 }
 
 @media (max-width:900px){
-  .hood,.vgrid,.split,.steps,.teams,.receipt-row,.guar4,.proof2,.facts,.race-grid{grid-template-columns:1fr}
+  .hood,.vgrid,.split,.steps,.teams,.receipt-row,.guar4,.facts,.race-grid{grid-template-columns:1fr}
   .vgrid>*,.split>*,.receipt-row>*,.race-grid>*{min-width:0}
   .receipt{padding:20px 16px 28px}
   .receipt .r{grid-template-columns:1fr 3.4em 3.8em 5.8em;gap:6px;font-size:.7rem}
