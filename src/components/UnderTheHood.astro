@@ -15,7 +15,7 @@
       <div class="hcol">
         <div class="hbox"><h4>SessionStart</h4><p>Loads Horsy’s rules into the session.</p></div>
         <div class="hbox"><h4>PreToolUse <code>· Agent</code></h4><p>Sees each subtask before it runs and picks the model.</p></div>
-        <div class="hbox"><h4>Stop</h4><p>Won’t let the session close until the check passes.</p></div>
+        <div class="hbox"><h4>Stop</h4><p>Asks for the check before the session closes. Retries are capped, and <code>/horsy off</code> always gets you out.</p></div>
       </div>
       <div class="engine">
         <h4><svg aria-hidden="true"><use href="#knight"/></svg>Horsy engine</h4>
@@ -28,6 +28,6 @@
         <div class="hbox model later"><h4>other providers</h4><i>later</i></div>
       </div>
     </div>
-    <p class="hnote">Your main session is never touched. Routing decisions run locally in tens of milliseconds.</p>
+    <p class="hnote">Your main session is never routed. Routing decisions run on your machine. In early access we are validating each hook on real sessions before launch.</p>
   </div>
 </section>

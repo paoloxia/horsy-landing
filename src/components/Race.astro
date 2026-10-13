@@ -1,0 +1,33 @@
+<section class="race" id="race" aria-label="How it works: a subtask runs on the cheapest model, fails the verify gate, steps up one model and passes, then a receipt prints.">
+  <div class="race-sticky">
+    <div class="wrap race-grid">
+      <div class="beats">
+        <p class="kick">How it works</p>
+        <div class="beat" data-beat="0"><h2>Every task gets the <em>cheapest</em> horse.</h2><p>Opus still plans. Each subtask it delegates starts on the cheapest model that might do it.</p></div>
+        <div class="beat" data-beat="1"><h2>Nothing crosses the line <em>unchecked</em>.</h2><p>Tests, lint and typecheck run first. A judge model only where there are no tests.</p></div>
+        <div class="beat" data-beat="2"><h2>Fail? One rung <em>up</em>.</h2><p>Like the knight, it doesn’t run straight. It jumps to the model that can do it, with the reason it failed.</p></div>
+        <div class="beat" data-beat="3"><h2>Then it <em>shows its work</em>.</h2><p>One receipt line per step: model, cost, time, pass or fail. Even when it lost.</p></div>
+        <div class="progress"><i id="raceBar"></i></div>
+      </div>
+      <div class="rboard" id="board">
+        <div class="rl" data-m="opus"><b>opus</b></div>
+        <div class="rl" data-m="sonnet"><b>sonnet</b></div>
+        <div class="rl" data-m="haiku"><b>haiku</b></div>
+        <div class="rgate"><span>verify</span></div>
+        <div class="rfin"></div>
+        <svg class="lpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path id="lpath" d="M50 83 V50 H64" pathLength="1"/></svg>
+        <div class="rhorse" id="rhorse"><i class="gallop"></i><span class="tasktag">write-test-stub</span></div>
+        <div class="checks" id="checks">
+          <p><span>tests</span><b class="ko">✗ 0 assertions</b></p>
+          <p><span>lint</span><b class="ok">✓</b></p>
+          <p><span>typecheck</span><b class="ok">✓</b></p>
+        </div>
+        <div class="knightflash" id="knightflash"><svg aria-hidden="true"><use href="#knight"/></svg></div>
+        <div class="minirec" id="minirec">
+          <p><span>haiku</span><span>$0.002</span><span class="ko">✗ empty</span></p>
+          <p><span>sonnet</span><span>$0.014</span><span class="ok">✓ pass</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

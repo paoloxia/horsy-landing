@@ -4,11 +4,14 @@
     <h2>Questions devs <em>actually</em> ask.</h2>
     <div class="faq" data-reveal>
       <details><summary>Does it work on a Claude Max plan?</summary><p>Yes. On a flat plan you don’t save money, you save quota: grunt work stops eating your Opus limits, so the plan lasts longer.</p></details>
-      <details><summary>Will it slow me down?</summary><p>Routing decisions run locally in tens of milliseconds. If Horsy fails or is slow, everything runs as before. It never blocks you.</p></details>
+      <details><summary>Will it slow me down?</summary><p>Routing decisions run on your machine, and we will publish measured latency before launch. If Horsy fails or is slow, everything runs as before. It never blocks you.</p></details>
       <details><summary>What if it routes something wrong?</summary><p>The check catches it and the task steps up one rung, with the reason. If a task type keeps losing, Horsy turns itself off for that type. You can also pin a model per task, or run <code>/horsy off</code>.</p></details>
-      <details><summary>Does my code leave my machine?</summary><p>Not to Horsy’s servers. Routing data is metadata only. If you use a remote judge for tasks without tests, it sees only the snippet it checks.</p></details>
+      <details><summary>Does my code leave my machine?</summary><p>Your code never goes to Horsy’s servers; routing data is metadata only (task type, model, cost, pass or fail). The one exception is a remote judge for tasks without tests, which you choose in <code>horsy.yaml</code>: it sees the snippet it checks.</p></details>
       <details><summary>Does it beat just using Sonnet for everything?</summary><p>We don’t know yet, and we won’t claim it until we’ve tested it on real coding sessions. The receipts will show it either way, including when the number is negative.</p></details>
       <details><summary>Does it touch my main session?</summary><p>No. Opus keeps planning in your main session. Horsy only routes the subagents it delegates to.</p></details>
+      <details><summary>How is this different from a model router?</summary><p>Routers pick a model before the task and stop there. Horsy also checks the work before accepting “done”, steps up a rung when the check fails, writes a receipt per step with the net cost, and turns itself off for task types where it loses.</p></details>
+      <details><summary>Why can’t I install it yet?</summary><p>We are in early access, validating each Claude Code hook on real sessions before we ship. Leave your email and you’ll hear the day <code>/plugin install horsy</code> works.</p></details>
+      <details><summary>Can a check trap my session?</summary><p>No. Checks have a retry cap, and <code>/horsy off</code> turns everything off in one command.</p></details>
     </div>
   </div>
 </section>

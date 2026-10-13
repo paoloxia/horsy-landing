@@ -1,12 +1,15 @@
+---
+import { EARLY_ACCESS_URL } from '../config';
+---
 <nav aria-label="Main">
   <div class="navbar">
     <a class="brand" href="#top" aria-label="Horsy home"><svg aria-hidden="true"><use href="#knight"/></svg>Horsy</a>
     <div class="navlinks">
-      <a href="#how">How it works</a>
+      <a href="#race">How it works</a>
+      <a href="#hood">Under the hood</a>
       <a href="#guarantees">Guarantees</a>
-      <a href="#teams">Teams</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
     </div>
-    <a class="pill light" href="#audit">Run the audit</a>
+    <a class="pill light magnetic" href={EARLY_ACCESS_URL} target="_blank" rel="noopener">Get early access</a>
   </div>
 </nav>

@@ -6,6 +6,7 @@ const NAV_OFFSET = -84;
 
 if (!reducedMotion()) {
   const lenis = new Lenis({ autoRaf: true, lerp: 0.09 });
+  (window as unknown as { lenis: Lenis }).lenis = lenis;
 
   // In-page links glide instead of jumping, and clear the floating nav.
   document.addEventListener('click', (e) => {

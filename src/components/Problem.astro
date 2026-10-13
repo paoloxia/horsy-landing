@@ -1,17 +1,19 @@
-<section>
+<section class="lie" id="problem">
   <div class="wrap">
     <p class="kick">The problem</p>
-    <h2>Your agent runs everything on the biggest model, and says <em>“done”</em> too early.</h2>
-    <div class="bento" data-reveal>
-      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>“Done” that isn’t done</h3><p>The agent reports success. You find out later. The rework costs more than the original task.</p><div class="viz"><span class="ok">✓ Task complete.</span> Added tests for auth.<br><span class="dim">$ npm test auth.test.ts</span><br><span class="ko">0 tests, 0 assertions</span></div></div>
-      <div class="cell bad"><span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><h3>Opus for everything</h3><p>Renaming a variable, grepping call sites, writing a test stub. All on the most expensive model, burning quota or money.</p><div class="viz" style="padding-bottom:28px"><div class="bars"><i data-l="rename" style="height:100%"></i><i data-l="grep" style="height:100%"></i><i data-l="stub" style="height:100%"></i><i data-l="refactor" style="height:100%"></i></div></div></div>
-      <div class="cell"><h3>Nobody picks models by hand</h3><p>Choosing a model per subtask, every time, is tedious. So nobody does it.</p><div class="viz picker"><span>rename-symbol <em>opus ▾</em></span><span>grep-call-sites <em>opus ▾</em></span><span>write-test-stub <em>opus ▾</em></span></div></div>
-      <div class="cell"><h3>It scales the wrong way</h3><p>Every parallel agent and every CI run multiplies the waste.</p><div class="viz"><div class="mult"><i style="height:12%"></i><i style="height:18%"></i><i style="height:22%"></i><i style="height:30%"></i><i style="height:34%"></i><i style="height:42%"></i><i style="height:48%"></i><i style="height:57%"></i><i style="height:63%"></i><i style="height:72%"></i><i style="height:80%"></i><i style="height:91%"></i></div></div></div>
+    <h2 class="statement">Your agent says <em>done</em>.<br/>It isn’t.</h2>
+    <div class="liebox" id="liebox" data-reveal>
+      <div class="cbar"><i></i><i></i><i></i><span>claude code · subagent</span></div>
+      <div class="liebody">
+        <p class="l1"><span class="ok">✓ Task complete.</span> Added tests for the auth module.</p>
+        <p class="l2"><span class="dim">$</span> npm test auth.test.ts</p>
+        <p class="l3"><span class="ko">0 tests, 0 assertions</span></p>
+      </div>
     </div>
-
-    <div class="board" data-reveal>
-      <div class="item"><span class="tagline">Early internal test · not a coding workload</span><b>−54.8%</b><p>vs Opus-only, on a replay of 200 real agent steps from an outbound sales workflow, at 95% agreement. Not yet tested on coding tasks.</p></div>
-      <div class="item"><span class="tagline">Early internal test · seeded errors</span><b>6 to 10 of 14</b><p>planted errors caught by Horsy’s check, against 4 for a small model used as a judge. $0.01 vs $1.10.</p></div>
+    <div class="facts" data-reveal>
+      <p><b>Opus for everything.</b> Renaming a variable, grepping call sites, a test stub: all on the most expensive model.</p>
+      <p><b>Nobody picks by hand.</b> Choosing a model per subtask, every time, is tedious. So nobody does it.</p>
+      <p><b>It scales the wrong way.</b> Every parallel agent and every CI run multiplies the waste.</p>
     </div>
   </div>
 </section>
