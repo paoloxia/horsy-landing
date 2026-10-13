@@ -150,6 +150,7 @@ footer .brand{font-size:1.25rem}
   background:linear-gradient(180deg,rgba(22,20,15,.92) 0%,rgba(22,20,15,.55) 38%,rgba(22,20,15,.35) 62%,rgba(217,84,30,.35) 88%,rgba(22,20,15,.6) 100%)}
 .final .shade{background:linear-gradient(180deg,rgba(22,20,15,.75) 0%,rgba(22,20,15,.25) 50%,transparent 100%)}
 .final .bgv{opacity:.95;object-position:50% 85%}
+.hero .bgv{opacity:.3;filter:sepia(.3) saturate(.8) brightness(.85)}
 .final{background:var(--ink)}
 .grain{z-index:1}
 @media (prefers-reduced-motion:reduce){.bgv{display:none}}
