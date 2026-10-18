@@ -11,6 +11,7 @@ if (sec && board && horse) {
   const rec = document.getElementById('minirec')!;
   const lpath = document.getElementById('lpath') as SVGPathElement | null;
   const bar = document.getElementById('raceBar')!;
+  const cost = document.getElementById('rcost');
   const beats = [...sec.querySelectorAll<HTMLElement>('.beat')];
   const lanes = [...board.querySelectorAll<HTMLElement>('.rl')]; // opus, sonnet, haiku
 
@@ -24,7 +25,7 @@ if (sec && board && horse) {
     const g = horse.querySelector<HTMLElement>('.gallop')!;
     const fw = g.offsetWidth, fh = g.offsetHeight;
     const laneY = (i: number) => i * lane + lane / 2 - fh / 2 + 6;
-    const x0 = 24, xGate = W * 0.5 - fw - 4, xJump = W * 0.5 + 40, xFin = W - 34 - fw - 12;
+    const x0 = 96, xGate = W * 0.5 - fw - 4, xJump = W * 0.5 + 40, xFin = W - 34 - fw - 12;
 
     let x = x0, y = laneY(2);
     if (p < 0.4) x = lerp(x0, xGate, ease(seg(p, 0.06, 0.4)));
@@ -36,6 +37,7 @@ if (sec && board && horse) {
 
     const lit = p < 0.58 ? 2 : 1;
     lanes.forEach((l, i) => l.classList.toggle('lit', i === lit));
+    if (cost) cost.textContent = lit === 2 ? 'haiku $0.002' : 'sonnet $0.014';
     checks.classList.toggle('on', p >= 0.42 && p < 0.62);
     board.classList.toggle('fail', p >= 0.46 && p < 0.58);
     knight.classList.toggle('on', p >= 0.56 && p < 0.7);

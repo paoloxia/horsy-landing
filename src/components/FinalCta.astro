@@ -1,20 +1,16 @@
 ---
-import { EARLY_ACCESS_URL } from '../config';
+import { EARLY_ACCESS_URL, TEAM_URL } from '../config';
 ---
 <section class="final" id="early">
   <video class="bgv" autoplay muted loop playsinline preload="auto" poster="/media/herd.jpg?v=2" aria-hidden="true"><source src="/media/herd.mp4?v=2" type="video/mp4"></video>
   <div class="shade"></div>
   <div class="grain"></div>
   <div class="wrap">
-    <h2>Let the cheap horse run. <em>Check</em> before it crosses the line.</h2>
+    <h2>Let the cheap horse run. Check before it crosses the line.</h2>
     <p class="final-sub">We’ll email you the day <code>/plugin install horsy</code> works. No newsletter.</p>
-    <div class="ctas"><a class="pill light magnetic" href={EARLY_ACCESS_URL} target="_blank" rel="noopener">Get early access</a></div>
-    <div class="reducers">
-      <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Free for individuals</span>
-      <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Runs locally</span>
-      <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Off with one command</span>
-      <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Verify mode first</span>
-    </div>
+    <div class="ctas"><a class="pill light" href={EARLY_ACCESS_URL} target="_blank" rel="noopener">Get early access</a></div>
+    <p class="reducers">Free for individuals · Runs locally · Verify mode first · Off with one command</p>
+    <p class="teamline">Running agents across a team, or in CI? <a href={TEAM_URL} target="_blank" rel="noopener">Become a design partner</a>.</p>
   </div>
   <div style="height:160px"></div>
 </section>

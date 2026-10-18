@@ -1,10 +1,10 @@
-// Receipt prints when it is well in view (replays each time).
+// Receipt prints once, when it scrolls into view.
 import { reducedMotion } from './motion';
 
 const r = document.getElementById('receipt');
 const tot = document.getElementById('rtot');
 if (r && tot && r.parentElement) {
-  const DUR = 5.2;
+  const DUR = 3;
   r.style.setProperty('--dur', `${DUR}s`);
   r.classList.add('wait');
   const ease = (x: number) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
@@ -31,12 +31,11 @@ if (r && tot && r.parentElement) {
     requestAnimationFrame(f);
   };
   if (!reducedMotion()) {
-    let timer: number | undefined;
-    new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
-          clearTimeout(timer);
           if (e.isIntersecting) {
+            io.disconnect();
             sync();
             r.classList.remove('go');
             void r.offsetWidth;
@@ -44,13 +43,11 @@ if (r && tot && r.parentElement) {
             r.classList.add('go');
             tot.textContent = '−$0.000';
             const d = parseFloat(getComputedStyle(tot.parentElement as Element).getPropertyValue('--d')) || DUR * 0.8;
-            timer = window.setTimeout(count, d * 1000 + 300);
-          } else {
-            r.classList.remove('go');
-            r.classList.add('wait');
+            window.setTimeout(count, d * 1000 + 300);
           }
         }),
-      { rootMargin: '-20% 0px -20% 0px', threshold: 0.6 },
-    ).observe(r.parentElement);
+      { rootMargin: "0px 0px -15% 0px", threshold: 0.25 },
+    );
+    io.observe(r.parentElement);
   }
 }

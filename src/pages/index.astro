@@ -4,7 +4,6 @@ import Sprite from '../components/Sprite.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Demo from '../components/Demo.astro';
-import Ticker from '../components/Ticker.astro';
 import Problem from '../components/Problem.astro';
 import Race from '../components/Race.astro';
 import Modes from '../components/Modes.astro';
@@ -12,7 +11,6 @@ import Receipt from '../components/Receipt.astro';
 import UnderTheHood from '../components/UnderTheHood.astro';
 import Guarantees from '../components/Guarantees.astro';
 import Config from '../components/Config.astro';
-import Teams from '../components/Teams.astro';
 import Faq from '../components/Faq.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
@@ -25,7 +23,6 @@ import Footer from '../components/Footer.astro';
   <Nav />
   <Hero />
   <Demo />
-  <Ticker />
   <Problem />
   <Race />
   <Modes />
@@ -33,7 +30,6 @@ import Footer from '../components/Footer.astro';
   <UnderTheHood />
   <Guarantees />
   <Config />
-  <Teams />
   <Faq />
   <FinalCta />
   <Footer />
@@ -41,10 +37,10 @@ import Footer from '../components/Footer.astro';
 
 <script>
   import '../scripts/smooth';
+  import '../scripts/nav';
   import '../scripts/reveal';
   import '../scripts/race';
   import '../scripts/scrollfx';
-  import '../scripts/magnetic';
   import '../scripts/receipt';
   import '../scripts/media';
   import '../scripts/copy';
