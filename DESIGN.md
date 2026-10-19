@@ -39,6 +39,11 @@ Read before touching any UI. Fix this file first when something looks wrong. Dir
 - Buttons: radius 999px kept (brand), one primary (silk) per viewport, secondary is a text link with an arrow.
 - Rules: 1px `--line` on paper, `#2E2A23` on ink. Numbered lists use mono numerals.
 
+## Audit section (primary CTA)
+- Hero leads with `npx @horsy/cli audit`; the npm package is not published yet, so the repo-clone fallback sits under it in small text. Drop the fallback only when the package is live.
+- Section sits on `--sand` (between paper and ink). The sample report is a printed sheet (`--paper2`, double top rule, mono). Tote board = one ink object with three figures, not cards.
+- Report text is verbatim from `horsy audit --demo` (synthetic data), labeled "Sample report on synthetic demo sessions". Never paste real usage numbers or local paths. Re-run the number check when the CLI output changes.
+
 ## Motion
 - Entrance: hero mask rise 1.1s cubic-bezier(.16,1,.3,1).
 - Scroll: race pinned story; receipt prints once in view.

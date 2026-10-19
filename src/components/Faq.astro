@@ -2,7 +2,8 @@
   <div class="wrap">
         <h2>Questions devs actually ask.</h2>
     <div class="faq">
-      <details open><summary>Does it work on a Claude Max plan?</summary><p>Yes. On a flat plan you don’t save money, you save quota: grunt work stops eating your Opus limits, so the plan lasts longer.</p></details>
+      <details open><summary>Does the audit send my sessions anywhere?</summary><p>No. It reads your local Claude Code transcripts on your machine, prices them at API list rates, and prints a report. Nothing leaves this machine. The numbers are estimates, and on Max or Pro they show how much quota you used, not a bill.</p></details>
+      <details><summary>Does it work on a Claude Max plan?</summary><p>Yes. On a flat plan you don’t save money, you save quota: grunt work stops eating your Opus limits, so the plan lasts longer.</p></details>
       <details><summary>Will it slow me down?</summary><p>Routing decisions run on your machine, and we will publish measured latency before launch. If Horsy fails or is slow, everything runs as before. It never blocks you.</p></details>
       <details><summary>What if it routes something wrong?</summary><p>The check catches it and the task steps up one rung, with the reason. If a task type keeps losing, Horsy turns itself off for that type. You can also pin a model per task, or run <code>/horsy off</code>.</p></details>
       <details><summary>Does my code leave my machine?</summary><p>Your code never goes to Horsy’s servers; routing data is metadata only (task type, model, cost, pass or fail). The one exception is a remote judge for tasks without tests, which you choose in <code>horsy.yaml</code>: it sees the snippet it checks.</p></details>

@@ -17,3 +17,12 @@ Stopped: 3 rounds with the same top issues (plateau rule). Rejected advice: 2-co
 - The critic caps content at ~7 on a pre-launch page with illustrative proof only. Real screenshots/receipts from a real session are the next lever, not CSS.
 - Scroll-pinned sections and videos get judged on random frames: give every animated object a meaningful resting state.
 - Recurring critic asks to keep for a human call: re-render the terminal demo shorter (no empty lower band), crop for mobile legibility.
+
+## Audit CTA pass (branch audit-cta)
+| Round | Overall | Lowest dims | Applied after it |
+|---|---|---|---|
+| a1 | 7.5 | polish 6, mobile 6 | copy button attached to the clone command (one pillbox), mobile full-width CTA, sticky audit copy column, larger mono, shorter final copy, silk primary in final CTA |
+| a2 | 7.0 | polish 6, mobile 6 | equal-width install column, final code nowrap, tighter mobile hero |
+
+Rejected: make the git clone the primary command (controller ruling keeps npx as headline with the honest note), crop the mobile report behind an expand button (hides the proof), drop the tote board (tote-board visual language is the brief). Stopped after 2 rounds (cap for this task).
+- Plateau at 7: critic dislikes two stacked command boxes; the fix is to publish to npm and drop the fallback.
