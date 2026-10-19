@@ -1,6 +1,6 @@
 ---
 // Sample report text comes from `horsy audit --demo` (synthetic sessions). Numbers are verbatim;
-// the only edit is a colon in place of a dash in finding 1. Checked against `--demo --json` by a script outside the repo.
+// the only edit is a colon in place of a dash in finding 1; the Share line and some --plan max rows are omitted. Checked against `--demo --json` by a script outside the repo.
 ---
 <section class="audit" id="audit" aria-labelledby="audit-h">
   <div class="wrap audit-grid">
@@ -14,7 +14,7 @@
       </div>
       <div class="tote" aria-label="Headline figures from the sample report below">
         <p class="tote-h">From the sample report</p>
-        <p><b>$3.23</b><span>estimated spend over 30 days, at API list prices</span></p>
+        <p><b>$3.23</b><span>API-equivalent spend over 30 days</span></p>
         <p><b>14</b><span>simple subagent tasks that ran on Opus</span></p>
         <p class="hot"><b>$0.55 to $1.08</b><span>could cost less</span></p>
       </div>
@@ -29,8 +29,8 @@
           <p class="s-meta">12 sessions · 3 projects · 2026-09-16 → 2026-10-16 · 4 lines skipped<br/>Demo data (synthetic)</p>
           <p class="s-note">Estimate: your local Claude Code transcripts priced at API list rates. Nothing leaves this machine.</p>
 
-          <h3 class="s-h"><span>SPEND</span> ~$3.23 at API list prices · 1.8M tokens</h3>
-          <p class="s-note">On Max/Pro you don't pay this per token; the same usage counts against your plan limits.</p>
+          <h3 class="s-h"><span>SPEND</span> ~$3.23 API-equivalent · 1.8M tokens</h3>
+          <p class="s-note">Paying per token? These are your dollars. On Max/Pro you pay a flat fee: rerun with --plan max to see tokens.</p>
           <dl class="s-rows">
             <dt>Models</dt><dd><span class="nw">opus-5-5 $2.89 (89%)</span> · <span class="nw">sonnet-5-5 $0.33 (10%)</span> · <span class="nw">haiku-5-5 $0.01 (&lt;1%)</span></dd>
             <dt>Subagents</dt><dd>49% of spend ($1.58)</dd>
@@ -51,7 +51,8 @@
               <tr><td>implement</td><td>opus-5-5</td><td class="n">1</td><td class="n">$0.10</td></tr>
             </tbody>
           </table>
-          <p class="s-note">+7 more (use --json for all). class is guessed from the task description; -wide = touches many files</p>
+          <p class="s-note">+7 more (use --json for all)</p>
+          <p class="s-note">class is guessed from the task description; -wide = touches many files</p>
 
           <h3 class="s-h"><span>COULD COST LESS</span></h3>
           <p class="s-line">~$0.55–$1.08 on 14 simple subagent tasks that ran on Opus (low = rerun on Sonnet, high = on Haiku; assumes equal quality)</p>
@@ -74,7 +75,7 @@
 
       <div class="planmax">
         <p><b>On a Max or Pro plan?</b> Run with <code>--plan max</code>. The report leads with tokens, not dollars:</p>
-        <code class="pm">SPEND  1.8M tokens (≈ $3.23 at API list prices)</code>
+        <code class="pm">SPEND  1.8M tokens (≈ $3.23 at API list prices)<br/>Busiest 5-hour windows (UTC, approximate: this machine only; your real reset may differ)<br/>2026-10-04 15:00 +5h 460k tok</code>
       </div>
     </div>
   </div>
