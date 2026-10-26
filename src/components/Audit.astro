@@ -1,6 +1,6 @@
 ---
 // Sample report text comes from `horsy audit --demo` (synthetic sessions). Numbers are verbatim;
-// the only edit is a colon in place of a dash in finding 1; the Share line and some --plan max rows are omitted. Checked against `--demo --json` by a script outside the repo.
+// the Share line and some --plan max rows are omitted. Checked against `--demo --json` by a script outside the repo.
 ---
 <section class="audit" id="audit" aria-labelledby="audit-h">
   <div class="wrap audit-grid">
@@ -14,9 +14,9 @@
       </div>
       <div class="tote" aria-label="Headline figures from the sample report below">
         <p class="tote-h">From the sample report</p>
-        <p><b>$3.23</b><span>API-equivalent spend over 30 days</span></p>
+        <p><b>$4.75</b><span>API-equivalent spend over 30 days</span></p>
         <p><b>14</b><span>simple subagent tasks that ran on Opus</span></p>
-        <p class="hot"><b>$0.55 to $1.08</b><span>could cost less</span></p>
+        <p class="hot"><b>$1.12</b><span>could cost less on Sonnet · Haiku unproven</span></p>
       </div>
       <p class="anext">Step two is the plugin in shadow mode: it shows what it would have routed, and what that would have saved.</p>
       <a class="textlink dk" href="#race">How the plugin works <span aria-hidden="true">↓</span></a>
@@ -29,53 +29,58 @@
           <p class="s-meta">12 sessions · 3 projects · 2026-09-16 → 2026-10-16 · 4 lines skipped<br/>Demo data (synthetic)</p>
           <p class="s-note">Estimate: your local Claude Code transcripts priced at API list rates. Nothing leaves this machine.</p>
 
-          <h3 class="s-h"><span>SPEND</span> ~$3.23 API-equivalent · 1.8M tokens</h3>
+          <h3 class="s-h"><span>SPEND</span> ~$4.75 API-equivalent · 2.8M tokens</h3>
           <p class="s-note">Paying per token? These are your dollars. On Max/Pro you pay a flat fee: rerun with --plan max to see tokens.</p>
           <dl class="s-rows">
-            <dt>Models</dt><dd><span class="nw">opus-5-5 $2.89 (89%)</span> · <span class="nw">sonnet-5-5 $0.33 (10%)</span> · <span class="nw">haiku-5-5 $0.01 (&lt;1%)</span></dd>
-            <dt>Subagents</dt><dd>49% of spend ($1.58)</dd>
-            <dt>Main sessions</dt><dd><span class="nw">51% of spend ($1.65): opus-5-5 $1.60 (97%)</span> · <span class="nw">sonnet-5-5 $0.05 (3%)</span></dd>
-            <dt>Cache</dt><dd>78% of input came from cache (higher is better)</dd>
-            <dt>Projects</dt><dd><span class="nw">project-1 $1.74 (54%)</span> · <span class="nw">project-2 $0.88 (27%)</span> · <span class="nw">project-3 $0.62 (19%)</span></dd>
-            <dt>Busiest days</dt><dd><span class="nw">2026-10-04 460k tok ($0.89)</span> · <span class="nw">2026-10-01 229k tok ($0.47)</span> · <span class="nw">2026-10-12 195k tok ($0.31)</span></dd>
+            <dt>Models</dt><dd><span class="nw">opus-5-5 $4.17 (88%)</span> · <span class="nw">sonnet-5-5 $0.56 (12%)</span> · <span class="nw">haiku-5-5 $0.02 (&lt;1%)</span></dd>
+            <dt>Subagents</dt><dd>65% of spend ($3.10)</dd>
+            <dt>Main sessions</dt><dd><span class="nw">35% of spend ($1.65): opus-5-5 $1.60 (97%)</span> · <span class="nw">sonnet-5-5 $0.05 (3%)</span></dd>
+            <dt>Cache</dt><dd>73% of input came from cache (higher is better)</dd>
+            <dt>Projects</dt><dd><span class="nw">project-1 $2.44 (51%)</span> · <span class="nw">project-2 $1.33 (28%)</span> · <span class="nw">project-3 $0.98 (21%)</span></dd>
+            <dt>Busiest days</dt><dd><span class="nw">2026-10-04 534k tok ($1.01)</span> · <span class="nw">2026-10-01 401k tok ($0.85)</span> · <span class="nw">2026-10-12 361k tok ($0.52)</span></dd>
           </dl>
 
           <h3 class="s-h"><span>DELEGATED TASKS</span></h3>
           <table class="s-tab">
             <thead><tr><th scope="col">class (guessed)</th><th scope="col">model</th><th scope="col" class="n">tasks</th><th scope="col" class="n">cost</th></tr></thead>
             <tbody>
-              <tr><td>search</td><td>opus-5-5</td><td class="n">7</td><td class="n">$0.49</td></tr>
-              <tr><td>explain</td><td>opus-5-5</td><td class="n">5</td><td class="n">$0.42</td></tr>
-              <tr><td>implement</td><td>sonnet-5-5</td><td class="n">3</td><td class="n">$0.14</td></tr>
-              <tr><td>read</td><td>opus-5-5</td><td class="n">1</td><td class="n">$0.11</td></tr>
-              <tr><td>implement</td><td>opus-5-5</td><td class="n">1</td><td class="n">$0.10</td></tr>
+              <tr><td>explain</td><td>opus-5-5</td><td class="n">5</td><td class="n">$0.80</td></tr>
+              <tr><td>search</td><td>opus-5-5</td><td class="n">5</td><td class="n">$0.78</td></tr>
+              <tr><td>read</td><td>opus-5-5</td><td class="n">3</td><td class="n">$0.49</td></tr>
+              <tr><td>implement</td><td>sonnet-5-5</td><td class="n">3</td><td class="n">$0.25</td></tr>
+              <tr><td>implement</td><td>opus-5-5</td><td class="n">1</td><td class="n">$0.19</td></tr>
             </tbody>
           </table>
           <p class="s-note">+7 more (use --json for all)</p>
           <p class="s-note">class is guessed from the task description; -wide = touches many files</p>
 
           <h3 class="s-h"><span>COULD COST LESS</span></h3>
-          <p class="s-line">~$0.55–$1.08 on 14 simple subagent tasks that ran on Opus (low = rerun on Sonnet, high = on Haiku; assumes equal quality)</p>
-          <p class="s-line">+ $0.02 rework: 1 task failed or was dispatched more than once</p>
+          <p class="s-line">~$1.12 on 14 simple subagent tasks that ran on Opus, if rerun on Sonnet (Haiku: unproven in your repo, up to ~$2.18); assumes equal quality</p>
+          <p class="s-line">+ $0.05 rework: 1 task failed or was dispatched more than once</p>
           <p class="s-line">+ $0.24 context: 1 session started with &gt; 50k tokens (cache writes above 50k)</p>
 
           <h3 class="s-h"><span>TOP THINGS TO CHANGE</span> (savings are estimates, scaled to 30 days)</h3>
           <ol class="s-top">
-            <li><b>Send search/read/explain/rename subagents to Haiku or Sonnet: 14 tasks ran on Opus.</b>
-              <span>→ Pass <code>model: "haiku"</code> (or set <code>model: haiku</code> in the agent's definition) for search/read/explain subagents. The Horsy plugin can do this per task, in shadow mode first.</span>
-              <i>(est. saving up to ~$1.08/month)</i></li>
+            <li><b>Send search/read/explain/rename subagents to Sonnet: 14 tasks ran on Opus.</b>
+              <span>→ Pass <code>model: "sonnet"</code> (or set <code>model: sonnet</code> in the agent's definition) for search/read/explain subagents. Haiku: unproven in your repo. The Horsy plugin can do this per task, in shadow mode first.</span>
+              <i>(est. saving ~$1.12/month)</i></li>
             <li><b>1 session started with &gt; 50k tokens of context.</b>
               <span>→ Trim CLAUDE.md, unused MCP servers and skills loaded at startup.</span>
               <i>(est. saving ~$0.24/month)</i></li>
           </ol>
           <p class="s-note">Only 2 findings stood out.</p>
+
+          <h3 class="s-h"><span>TIPS</span></h3>
+          <p class="s-line">- Your longest session re-reads ~81k tokens of context every turn</p>
+          <p class="s-line">→ /clear between unrelated tasks, /compact when switching topic.</p>
+
           <p class="s-note">Prices: Anthropic API list prices as of 2026-10-19</p>
         </div>
       </figure>
 
       <div class="planmax">
         <p><b>On a Max or Pro plan?</b> Run with <code>--plan max</code>. The report leads with tokens, not dollars:</p>
-        <code class="pm">SPEND  1.8M tokens (≈ $3.23 at API list prices)<br/>Busiest 5-hour windows (UTC, approximate: this machine only; your real reset may differ)<br/>2026-10-04 15:00 +5h 460k tok</code>
+        <code class="pm">SPEND  2.8M tokens (≈ $4.75 at API list prices)<br/>Busiest 5-hour windows (UTC, approximate: this machine only; your real reset may differ)<br/>2026-10-04 15:00 +5h 534k tok</code>
       </div>
     </div>
   </div>
